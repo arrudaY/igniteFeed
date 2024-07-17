@@ -1,8 +1,8 @@
+import { format, formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
 
 import { Avatar } from './Avatar.jsx'
-// import ptBR from 'date-fns/locale/pt-BR';
-// import { format, formatDistanceToNow } from 'date-fns';
 import { Comment } from './Comment.jsx'
 import styles from './Post.module.css'
 
@@ -28,9 +28,13 @@ interface PostProps {
 export function Post({ post }: PostProps) {
   const [comments, setComments] = useState([])
   const [newCommentText, setNewCommentText] = useState('')
-  //
-  //    const publishedDate = format(post.publishedAt, "d 'de' LLLL 'às' HH:mm'h'", { locale: ptBR});
-  //    const publishedDateRelativeToNow = formatDistanceToNow(post.publishedAt,{ locale: ptBR, addSuffix: true});
+  const publishedDate = format(post.publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBR,
+  })
+  const publishedDateRelativeToNow = formatDistanceToNow(post.publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  })
 
   const isNewCommentEmpty = newCommentText.length === 0
 
@@ -63,24 +67,23 @@ export function Post({ post }: PostProps) {
             <span>{post.author.role}</span>
           </div>
         </div>
-        {/* <time title={publishedDate} dateTime={post.publishedAt.toISOString()}> */}
-        {/*    {publishedDateRelativeToNow} */}
-        {/* </time> */}
+        <time title={publishedDate} dateTime={post.publishedAt.toISOString()}>
+          {publishedDateRelativeToNow}
+        </time>
       </header>
 
       <div className={styles.content}>
-        {/*  {post.content.map((item) => {
+        {post.content.map((item) => {
           if (item.type === 'paragraph') {
-            // não tem id, por isso o próprio conteúdo foi usado como key
             return <p key={item.content}>{item.content}</p>
-          } else if (item.type === 'link') {
+          } else {
             return (
               <p key={item.content}>
                 <a href="">{item.content}</a>
               </p>
             )
           }
-        })} */}
+        })}
       </div>
 
       <form onSubmit={handleCreateNewComment} className={styles.commentForm}>

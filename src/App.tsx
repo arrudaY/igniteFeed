@@ -40,7 +40,7 @@ const posts: PostType[] = [
       },
       { type: 'link', content: 'jane.design/doctorcare' },
     ],
-    publishedAt: new Date('2023-07-10 5:00:00'),
+    publishedAt: new Date('2023-07-10 6:00:00'),
   },
 ]
 
